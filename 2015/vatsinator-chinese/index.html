@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="一个初级前端开发者的挖坑记录">
+  <meta name="keyword" content="博客, 前端, Web">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      快速简易VATSIM地图软件 -- Vatsinator 中文翻译版本V1.0 | Noah&#39;s Blog
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <!--<div class="logo"></div>-->
+      <span>Noah's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/resume/" class="item-link">Resume</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/resume/" class="menu-link">Resume</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>快速简易VATSIM地图软件 -- Vatsinator 中文翻译版本V1.0</h2>
+  <p class="post-date">2015-07-15</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><p>以下是我发表在<a href="https://forum.vatprc.net/index.php?/topic/1822-%E5%BF%AB%E9%80%9F%E7%AE%80%E6%98%93vatsim%E5%9C%B0%E5%9B%BE%E8%BD%AF%E4%BB%B6-vatsinator-%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91%E7%89%88%E6%9C%ACv10/" target="_blank" rel="noopener">VATPRC论坛</a>的原帖转换版</p>
+<p>Hello,everyone,</p>
+<font size="5"><strong>你是否遇见过这样的问题？</strong></font>
+
+<p>今天，给大家推荐一个新的（其实不算新13年就发布了~）的VATSIM监视器 – Vatsinator。</p>
+<p>该软件由波兰的Michał Garapich和Jan Macheta联合开发，目前正式发布的版本号是v0.2.1(2013年11月发布)，网站是<a href="https://www.vatsinator.eu.org" target="_blank" rel="noopener">https://www.vatsinator.eu.org</a>，项目部署在Github(<a href="https://github.com/Vatsinator/Vatsinator" target="_blank" rel="noopener">https://github.com/Vatsinator/Vatsinator</a>)，软件采取原生C++和QT，具备跨平台特性，效率极高，天津长宽可在5秒内抓取到在线数据。<br><a id="more"></a></p>
+<p>从开发分支来看，Garapich打算憋个大招，他甚至用QT实现了安卓版本和航图管理等新功能，但根据文件创建情况来看，正式版发布还需要一段时间，现有的v0.2.1版本已经可以满足大家的主要需要，所以本人使用一个上午的时间翻译了v0.2.1的语言文件，创建了<a href="https://github.com/noahziheng/vatsinator-chinese" target="_blank" rel="noopener">https://github.com/noahziheng/vatsinator-chinese</a>仓库。现在把软件和汉化包分享给大家。</p>
+<p><strong>vatsinator下载:</strong><br><a href="https://vatsinator.eu.org/installation/" target="_blank" rel="noopener">https://vatsinator.eu.org/installation/</a><br><strong>汉化包下载:</strong><br><a href="https://github.com/noahziheng/vatsinator-chinese/releases" target="_blank" rel="noopener">https://github.com/noahziheng/vatsinator-chinese/releases</a></p>
+<p><strong>使用说明:</strong><br><strong>将tanslations文件夹复制到软件安装目录，到设置language中选择简体中文,然后重启软件即可。</strong></p>
+<font color="#b22222"><strong><font size="4">Warning:软件使用GPLv3协议发布，所以汉化包也采用了该协议，若需分享必须附带LICENSE文件并注明出处</font></strong></font>
+
+<p><strong><font size="4"><font size="4">PS:我已经把翻译文件pull request给了开发者，正在等待回应，或许不久后官网版本也将附带该汉化包。实际上软件使用tansifex作为翻译平台，可惜我这慢的跟狗一样，根本上不去，只能直接翻译语言包咯。</font></font></strong><br><strong><font size="4"><font size="4">PPS:我正在尝试编译它的develop分支，希望能给大家一个更强大的体验版本。</font></font></strong></p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#个人项目" >
+    <span class="tag-code">个人项目</span>
+  </a>
+
+  <a href="/tags#VATSIM" >
+    <span class="tag-code">VATSIM</span>
+  </a>
+
+  <a href="/tags#翻译" >
+    <span class="tag-code">翻译</span>
+  </a>
+
+  <a href="/tags#汉化" >
+    <span class="tag-code">汉化</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="nav">none</ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://noahgao.net/2015/vatsinator-chinese/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "noahziheng";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "快速简易VATSIM地图软件 -- Vatsinator 中文翻译版本V1.0",
+        owner: "noahziheng",
+        repo: "noahziheng.github.io",
+        oauth: {
+          client_id: "a9a8b8ae317ae422c1eb",
+          client_secret: "017b8d86dc6ee4c9a95b16d37ac432a141541eec"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2018 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+    <br>
+    Photo by <a href="https://unsplash.com/photos/PC_lbSSxCZE?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Kristopher Roller</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+    <br>
+    <a href="http://www.miitbeian.gov.cn" target="_blank">津ICP备16007205号</a>
+    &nbsp; | &nbsp; 
+    <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12010302001093">津公网安备 12010302001093号</a>
+  </p>
+</footer>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-65530848-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-65530848-1');
+</script>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script>
+    var _baId = 'f4eb406be058265cf6064b36b379393d';
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<script src="/js/script.js"></script>
+  </body>
+</html>

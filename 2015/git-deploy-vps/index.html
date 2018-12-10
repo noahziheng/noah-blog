@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="一个初级前端开发者的挖坑记录">
+  <meta name="keyword" content="博客, 前端, Web">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      使用Git在VPS上部署代码 | Noah&#39;s Blog
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <!--<div class="logo"></div>-->
+      <span>Noah's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/resume/" class="item-link">Resume</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/resume/" class="menu-link">Resume</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>使用Git在VPS上部署代码</h2>
+  <p class="post-date">2015-07-28</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><blockquote>
+<p>参考了<a href="https://blog.berry10086.com/" target="_blank" rel="noopener">Berry</a>的<a href="https://blog.berry10086.com/Tech/deploy-hexo-to-vps/" target="_blank" rel="noopener">在VPS上部署Hexo</a>一文</p>
+</blockquote>
+<h1 id="第一步、建立git账户"><a href="#第一步、建立git账户" class="headerlink" title="第一步、建立git账户"></a>第一步、建立git账户</h1><p>  为了使用SSH地址访问，需要建立一个git账户，还记得github的SSH地址吗，形如<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git@github.com:noahziheng/eaipchartscn.git</span><br></pre></td></tr></table></figure></p>
+<p>  再看看连接ssh管理VPS是的命令<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh root@127.0.0.1</span><br></pre></td></tr></table></figure></p>
+<p>  所以，我们发现github使用的SSH地址，就是git主文件夹下noahziheng文件夹下eaipchartscn.git文件夹下的Git仓库，于是我们可以模拟出来这种地址方面认识git。<br><a id="more"></a> </p>
+<h1 id="第二步、Git安装"><a href="#第二步、Git安装" class="headerlink" title="第二步、Git安装"></a>第二步、Git安装</h1><p>  首先在VPS上安装git，<code>apt-get install git</code><br>  本地也要安装git，windows系统下，直接去官网下载即可，linux参考VPS上的安装方式或自行百度  </p>
+<h2 id="本地生成SSH秘钥"><a href="#本地生成SSH秘钥" class="headerlink" title="本地生成SSH秘钥"></a>本地生成SSH秘钥</h2><ol>
+<li><p>Windows系统<br>打开C:\Users\&lt;用户名&gt;.ssh文件夹，如果没有就新建<br>在空白处单击右键，选择Git Bash Here打开终端  </p>
+</li>
+<li><p>Linux系统下<br>打开终端输入<code>mkdir .ssh &amp;&amp; cd .ssh</code></p>
+</li>
+</ol>
+<p>输入命令<code>ssh-keygen -t rsa -C &quot;abc@163.com&quot;</code>一路回车，生成公钥和密钥，一会要用到公钥，记得把邮箱换成自己的</p>
+<h2 id="服务器端配置"><a href="#服务器端配置" class="headerlink" title="服务器端配置"></a>服务器端配置</h2><p>新建git用户,<code># adduser git --ingroup sudo</code><br>切换到git用户，进行一些初始化操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># su git</span><br><span class="line">$ cd ~</span><br><span class="line">$ mkdir .ssh &amp;&amp; cd .ssh</span><br><span class="line">$ touch authorized_keys</span><br><span class="line">$ vi authorized_keys</span><br></pre></td></tr></table></figure>
+<p>把本地.ssh目录中的公钥id_rsa.pub里的内容粘贴到authorized_keys里，这样本地和VPS之间就可以通过ssh使用git了<br>测试，在终端中输入<code>ssh git@&lt;your_ip&gt;</code>，如果能够远程登陆，说明这一步没有问题<br>为静态内容新建仓库，接着上面的步骤</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cd ~ </span><br><span class="line">$ mkdir blog.git &amp;&amp; cd blog.git</span><br><span class="line">$ git init --bare</span><br></pre></td></tr></table></figure>
+<h2 id="本地设置"><a href="#本地设置" class="headerlink" title="本地设置"></a>本地设置</h2><p>设置git用户名并添加远程地址，在Bash终端里</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.email &quot;email@example.com&quot;</span><br><span class="line">$ git config --global user.name &quot;username&quot;</span><br><span class="line">$ git remote add vps git@&lt;your_ip&gt;:blog.git</span><br></pre></td></tr></table></figure>
+<p>如果执行<code>git push vps master</code>成功，说明Git仓库已经准备完毕。</p>
+<p>#第三步、Webhooks<br>blog.git是速度比较快的bare仓库，并不是可直接使用的目录，所以需要制作一个POST Hooks将这个仓库clone到临时文件夹，再拷贝到实际www目录。<br>Git hooks</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cd ~/blog.git/hooks</span><br><span class="line">$ touch post-receive</span><br><span class="line">$ vi post-receive</span><br></pre></td></tr></table></figure>
+<p>使用下面的脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash -l</span><br><span class="line">GIT_REPO=/home/git/blog.git</span><br><span class="line">TMP_GIT_CLONE=/tmp/blog</span><br><span class="line">PUBLIC_WWW=/var/www/blog</span><br><span class="line">rm -rf $&#123;TMP_GIT_CLONE&#125;</span><br><span class="line">git clone $GIT_REPO $TMP_GIT_CLONE</span><br><span class="line">rm -rf $&#123;PUBLIC_WWW&#125;/*</span><br><span class="line">cp -rf $&#123;TMP_GIT_CLONE&#125;/* $&#123;PUBLIC_WWW&#125;</span><br></pre></td></tr></table></figure>
+<p>更改脚本权限和/var/www/blog权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ chmod +x post-receive</span><br><span class="line">$ sudo chmod 775 -R /var/www/blog</span><br></pre></td></tr></table></figure>
+<p>这时在本地执行<code>git push vps master</code>几秒就可以完成博客的更新</p>
+<h1 id="第四步、Nginx配置"><a href="#第四步、Nginx配置" class="headerlink" title="第四步、Nginx配置"></a>第四步、Nginx配置</h1><p>直接配置静态配置，根目录配置为/var/www/blog</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># touch /etc/nginx/sites-available/blog</span><br><span class="line"># vi /etc/nginx/sites-available/blog</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">server &#123;                                                                               </span><br><span class="line">    listen 192.184.88.212:80 ;                                                                                               </span><br><span class="line">    root /var/www/blog;                                                        </span><br><span class="line">    server_name blog.berry10086.tk;                                                 </span><br><span class="line">    access_log  /var/log/nginx/blog_access.log;                                    </span><br><span class="line">    error_log   /var/log/nginx/blog_error.log;                                            </span><br><span class="line">    location ~* ^.+\.(ico|gif|jpg|jpeg|png)$ &#123;                            </span><br><span class="line">            root /var/www/blog;                                    </span><br><span class="line">            access_log   off;                 </span><br><span class="line">            expires      1d;                            </span><br><span class="line">        &#125;                                                                              </span><br><span class="line">    location ~* ^.+\.(css|js|txt|xml|swf|wav)$ &#123;                                   </span><br><span class="line">        root /var/www/blog;                                                        </span><br><span class="line">        access_log   off;                                                          </span><br><span class="line">        expires      10m;                                                          </span><br><span class="line">    &#125;                                                                              </span><br><span class="line">    location / &#123;                                                                   </span><br><span class="line">        root /var/www/blog;                                                </span><br><span class="line">        if (-f $request_filename) &#123;                                            </span><br><span class="line">            rewrite ^/(.*)$  /$1 break;                                    </span><br><span class="line">        &#125;                                                                      </span><br><span class="line">    &#125;                                                                              </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>至此，配置已经完成，这个方案也可以用于Node.js/Python在Docker容器下的部署，只要把Docker的运行根目录映射到/var/www/xxx目录，修改post脚本中的变量即可，nginx使用反向代理，附上nginx反向代理配置一份</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">upstream nodejs &#123;</span><br><span class="line">    server 127.0.0.1:3000;</span><br><span class="line">    keepalive 64;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name charts.noahgao.net;</span><br><span class="line">    access_log off;</span><br><span class="line">    location ~ ^/(images/|img/|javascript/|js/|css/|stylesheets/|flash/|media/|static/|robots.txt|humans.txt|favicon.ico) &#123;</span><br><span class="line">        root /var/www/charts/public;</span><br><span class="line">        access_log off;</span><br><span class="line">        expires max;</span><br><span class="line">    &#125;</span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">        proxy_set_header Host  $http_host;</span><br><span class="line">        proxy_set_header X-Nginx-Proxy true;</span><br><span class="line">        proxy_set_header Connection &quot;&quot;;</span><br><span class="line">        proxy_pass      https://nodejs;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#hexo" >
+    <span class="tag-code">hexo</span>
+  </a>
+
+  <a href="/tags#deploy" >
+    <span class="tag-code">deploy</span>
+  </a>
+
+  <a href="/tags#部署" >
+    <span class="tag-code">部署</span>
+  </a>
+
+  <a href="/tags#VPS" >
+    <span class="tag-code">VPS</span>
+  </a>
+
+  <a href="/tags#Docker" >
+    <span class="tag-code">Docker</span>
+  </a>
+
+  <a href="/tags#nginx" >
+    <span class="tag-code">nginx</span>
+  </a>
+
+  <a href="/tags#git" >
+    <span class="tag-code">git</span>
+  </a>
+
+  <a href="/tags#webhooks" >
+    <span class="tag-code">webhooks</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#第一步、建立git账户"><span class="toc-nav-text">第一步、建立git账户</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#第二步、Git安装"><span class="toc-nav-text">第二步、Git安装</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#本地生成SSH秘钥"><span class="toc-nav-text">本地生成SSH秘钥</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#服务器端配置"><span class="toc-nav-text">服务器端配置</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#本地设置"><span class="toc-nav-text">本地设置</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#第四步、Nginx配置"><span class="toc-nav-text">第四步、Nginx配置</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://noahgao.net/2015/git-deploy-vps/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "noahziheng";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "使用Git在VPS上部署代码",
+        owner: "noahziheng",
+        repo: "noahziheng.github.io",
+        oauth: {
+          client_id: "a9a8b8ae317ae422c1eb",
+          client_secret: "017b8d86dc6ee4c9a95b16d37ac432a141541eec"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2018 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+    <br>
+    Photo by <a href="https://unsplash.com/photos/PC_lbSSxCZE?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Kristopher Roller</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+    <br>
+    <a href="http://www.miitbeian.gov.cn" target="_blank">津ICP备16007205号</a>
+    &nbsp; | &nbsp; 
+    <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12010302001093">津公网安备 12010302001093号</a>
+  </p>
+</footer>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-65530848-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-65530848-1');
+</script>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script>
+    var _baId = 'f4eb406be058265cf6064b36b379393d';
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<script src="/js/script.js"></script>
+  </body>
+</html>

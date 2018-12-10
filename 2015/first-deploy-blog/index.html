@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="一个初级前端开发者的挖坑记录">
+  <meta name="keyword" content="博客, 前端, Web">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      博客部署随想 | Noah&#39;s Blog
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <!--<div class="logo"></div>-->
+      <span>Noah's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/resume/" class="item-link">Resume</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/resume/" class="menu-link">Resume</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>博客部署随想</h2>
+  <p class="post-date">2015-07-06</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h2 id="结局"><a href="#结局" class="headerlink" title="结局"></a>结局</h2><p>如你所看到的，这个博客基本已经完成部署的工作，只是干货十分缺乏“而已”。</p>
+<h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><p>被各类“教程”搞的身心俱疲。<strong>现在npm仓库中的hexo是hexo3，部署方法已经存在不小差别，很多模块已经独立，建议大家参照官方教程，官网有中文，点赞！</strong><br><a id="more"></a><br>实际上，比起其他的麻烦，hexo的安装并不算麻烦，只是等待时间稍长，建议使用<a href="https://www.cnpmjs.org" target="_blank" rel="noopener">cnpm（npm中国镜像）</a>，能缩短不少时间。<br>最早完成的是<a href="https://github.io" target="_blank" rel="noopener">Github Pages</a>的部署，一切顺利。<br>之后希望在国内做个镜像，痛点就此而来。</p>
+<h2 id="痛点"><a href="#痛点" class="headerlink" title="痛点"></a>痛点</h2><p>先是<a href="https://www.gitcafe.com" target="_blank" rel="noopener">Gitcafe</a>的pages服务，此前一切顺利，事实上Gitcafe是我除了<a href="https://git.oschina.net" target="_blank" rel="noopener">git@OSC</a>使用的第二备选，一直观感不错，在github各种访问不顺的大势下，国内的代码托管服务中第一印象很重要。但是，Gitcafe的pages有个致命问题，在单次部署后会出现至少15-20分钟的404 Not Found状态,一直无解，度娘谷歌均无近期的答案，无奈，只好删除DNSPod中解析了事。<br>后来，因为最近一直在尝试<a href="https://www.coding.net" target="_blank" rel="noopener">Coding</a>，想到Coding有个演示平台，但是Coding北京的平台受政策限制不能绑定域名，香港平台29一月略贵，最终还是放弃了。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>整篇文章我尽力保持中立没有吐槽，毕竟厂商为我们提供免费服务已是不易，我也是对提供免费服务的厂商感到非常的钦佩，但看起来国内厂商还有一段路要走。事实上，出于近期经济预算的考虑，还是要挑选免费的服务作为第一选择。最终，我还是选择github pages作为访问源，可能时不时的还会抽下风，但近期也只能如此了。<br>如果有朋友有更好的选择或者建议，欢迎给我评论留言，我将感激不尽！！</p>
+<p><img src="https://coding.net/static/5ee8025c9dc63a6ff53153705d0e7ce8.png" alt="Coding LOGO"></p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#随笔" >
+    <span class="tag-code">随笔</span>
+  </a>
+
+  <a href="/tags#coding" >
+    <span class="tag-code">coding</span>
+  </a>
+
+  <a href="/tags#github" >
+    <span class="tag-code">github</span>
+  </a>
+
+  <a href="/tags#hexo" >
+    <span class="tag-code">hexo</span>
+  </a>
+
+  <a href="/tags#deploy" >
+    <span class="tag-code">deploy</span>
+  </a>
+
+  <a href="/tags#部署" >
+    <span class="tag-code">部署</span>
+  </a>
+
+  <a href="/tags#Gitcafe" >
+    <span class="tag-code">Gitcafe</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#结局"><span class="toc-nav-text">结局</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#过程"><span class="toc-nav-text">过程</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#痛点"><span class="toc-nav-text">痛点</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#小结"><span class="toc-nav-text">小结</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://noahgao.net/2015/first-deploy-blog/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "noahziheng";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "博客部署随想",
+        owner: "noahziheng",
+        repo: "noahziheng.github.io",
+        oauth: {
+          client_id: "a9a8b8ae317ae422c1eb",
+          client_secret: "017b8d86dc6ee4c9a95b16d37ac432a141541eec"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2018 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+    <br>
+    Photo by <a href="https://unsplash.com/photos/PC_lbSSxCZE?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Kristopher Roller</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+    <br>
+    <a href="http://www.miitbeian.gov.cn" target="_blank">津ICP备16007205号</a>
+    &nbsp; | &nbsp; 
+    <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12010302001093">津公网安备 12010302001093号</a>
+  </p>
+</footer>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-65530848-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-65530848-1');
+</script>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script>
+    var _baId = 'f4eb406be058265cf6064b36b379393d';
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<script src="/js/script.js"></script>
+  </body>
+</html>

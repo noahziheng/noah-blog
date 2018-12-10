@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="一个初级前端开发者的挖坑记录">
+  <meta name="keyword" content="博客, 前端, Web">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      SkyEvent开发随笔(1) | Noah&#39;s Blog
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <!--<div class="logo"></div>-->
+      <span>Noah's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/resume/" class="item-link">Resume</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/resume/" class="menu-link">Resume</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>SkyEvent开发随笔(1)</h2>
+  <p class="post-date">2015-08-20</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><p><img src="http://7xksvs.com1.z0.glb.clouddn.com/images/skyevent-logo.png" alt=""></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近一周一直在做一个亦个人亦团队的项目–SkyEvent，之所以这么说是因为，开发方面只有我自己来做，算是首个粗糙但完整的全栈项目。之所以说团队，是因为随着正式投入运行的日期逼近，VATPRC的小伙伴终于要加入进来，承担内部和公开的测试任务，VATPRC也将成为进驻的第一个分部。由于距正式发布尚有1个多月，公开测试也还有半个月的时间，又是内部项目，这次就不爆谍照来保个密吧～</p>
+<h1 id="进度"><a href="#进度" class="headerlink" title="进度"></a>进度</h1><a id="more"></a>    
+<ul>
+<li>已经具备一个可靠的用户登录系统，并可在数天的时间之内加入VATSIM SSO的支持。</li>
+<li>已经具有完善的活动数据结构和查看部分。</li>
+<li>活动的管理已经席位、航班的预定正在紧张的敲码当中。</li>
+</ul>
+<h1 id="确定的部署结构"><a href="#确定的部署结构" class="headerlink" title="确定的部署结构"></a>确定的部署结构</h1><ul>
+<li>后端核心部分使用ThinkPHP 3.2.3，部署在新浪云的SAE上，好几千云豆不用白不用，还能提供方便的计划任务方便定时发送活动提醒邮件。</li>
+<li>前端使用老方案Bootstrap 3.3.5 + jquery 1.11.3，不过首次采取单一入口和完全闭包来做，为未来前后端只靠AJAX连接彻底分离做准备。</li>
+<li>邮件部分使用每天500封的腾讯企业邮箱，额度够大</li>
+<li>域名部分使用自己的skyevent.tk,但考虑tk域名搜索引擎不收录，也不够稳定，主要还是通过skyevent.sinaapp.com传递数据，向VATPRC申请的二级域名做镜像。</li>
+</ul>
+<h1 id="心得"><a href="#心得" class="headerlink" title="心得"></a>心得</h1><ol>
+<li><p>前端单一入口</p>
+<p>前端全部使用单一入口，禁止URL跳转的方法主要是为了节省流量和今后对前后端彻底分离的考虑，鉴于SAE绑域名双倍流量，自己的服务器又不够快，前端HTML部署在自己的服务器，仅在首次进入网站时使用，所有数据从部署在国内云平台的API上抓就是一个好的方案。</p>
+<p>2.后端ThinkPHP过于臃肿又不得不用</p>
+<p>由于SAE是使用特殊API，本地模拟很难，ThinkPHP包装的很好用，但是看起来访问速度，效率上总感觉有些臃肿，大概也是我PHP基础还不够扎实吧，不过总体考虑，有机会还是会把后端使用其他框架重写，但部署在SAE上的话暂时使用ThinkPHP也足够了。</p>
+</li>
+<li><p>SAE确实有点落伍</p>
+<p>SAE的I/O锁死，数据库，缓存API全部使用自有API给本地开发带来了不小的麻烦，而在远程调试流量又太贵，对于我这种边学边做的人来说确实头疼，好在ThinkPHP团队的成果还是不错的，简单的封装有效减少了学习、调试成本，不过如（2）轻量化程度对我这个强迫症来说，大概PHP就不太合适：）另外SVN确实不如git顺手。</p>
+</li>
+<li><p>Coding好用到飞起</p>
+<p>目前正用coding的私有项目管理，git库又快又准，IDE在临时情况下用过，要不是习惯了自己的sublime，绝对在上面写项目没问题！<br>就算帮他们打广告吧，听说团队用更舒服。<a href="https://coding.net" target="_blank" rel="noopener">https://coding.net</a></p>
+</li>
+</ol>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p> 第一阶段的开发想快也快不起来，多语言词条的维护更是头疼，只有慢慢消化这些成果咯～</p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#coding" >
+    <span class="tag-code">coding</span>
+  </a>
+
+  <a href="/tags#VATSIM" >
+    <span class="tag-code">VATSIM</span>
+  </a>
+
+  <a href="/tags#git" >
+    <span class="tag-code">git</span>
+  </a>
+
+  <a href="/tags#ThinkPHP" >
+    <span class="tag-code">ThinkPHP</span>
+  </a>
+
+  <a href="/tags#SkyEvent" >
+    <span class="tag-code">SkyEvent</span>
+  </a>
+
+  <a href="/tags#VATPRC" >
+    <span class="tag-code">VATPRC</span>
+  </a>
+
+  <a href="/tags#PHP" >
+    <span class="tag-code">PHP</span>
+  </a>
+
+  <a href="/tags#前端" >
+    <span class="tag-code">前端</span>
+  </a>
+
+  <a href="/tags#后端" >
+    <span class="tag-code">后端</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#前言"><span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#进度"><span class="toc-nav-text">进度</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#确定的部署结构"><span class="toc-nav-text">确定的部署结构</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#心得"><span class="toc-nav-text">心得</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#总结"><span class="toc-nav-text">总结</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://noahgao.net/2015/skyevent-1/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "noahziheng";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "SkyEvent开发随笔(1)",
+        owner: "noahziheng",
+        repo: "noahziheng.github.io",
+        oauth: {
+          client_id: "a9a8b8ae317ae422c1eb",
+          client_secret: "017b8d86dc6ee4c9a95b16d37ac432a141541eec"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2018 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+    <br>
+    Photo by <a href="https://unsplash.com/photos/PC_lbSSxCZE?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Kristopher Roller</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+    <br>
+    <a href="http://www.miitbeian.gov.cn" target="_blank">津ICP备16007205号</a>
+    &nbsp; | &nbsp; 
+    <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12010302001093">津公网安备 12010302001093号</a>
+  </p>
+</footer>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-65530848-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-65530848-1');
+</script>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script>
+    var _baId = 'f4eb406be058265cf6064b36b379393d';
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<script src="/js/script.js"></script>
+  </body>
+</html>

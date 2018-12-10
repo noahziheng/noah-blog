@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="一个初级前端开发者的挖坑记录">
+  <meta name="keyword" content="博客, 前端, Web">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Android APP WiFi开发大坑收录 | Noah&#39;s Blog
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <!--<div class="logo"></div>-->
+      <span>Noah's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/resume/" class="item-link">Resume</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/resume/" class="menu-link">Resume</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Android APP WiFi开发大坑收录</h2>
+  <p class="post-date">2017-02-18</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><p><strong>转载请保留 本文来自 <a href="https://noahgao.net">Noah‘sBlog</a></strong></p>
+<p>最近在开发一整套全端的物联网套件（<a href="https://iot.noahgao.net" target="_blank" rel="noopener">FreeIOT</a>），由于其中Android客户端的开发是以往从未涉猎过的，所以吃了不少苦头，其中的一些大坑打算整理成文，这是第一篇。<br>我的基础部分习自<a href="http://www.jianshu.com/p/75495710b0d6" target="_blank" rel="noopener">Android Wifi 开发相关 - 简书</a></p>
+<a id="more"></a>
+<h1 id="Android-M以上扫描热点列表权限问题"><a href="#Android-M以上扫描热点列表权限问题" class="headerlink" title="Android M以上扫描热点列表权限问题"></a>Android M以上扫描热点列表权限问题</h1><blockquote>
+<p>主要涉及文章<br><a href="http://www.jianshu.com/p/3400ca0deeee" target="_blank" rel="noopener">http://www.jianshu.com/p/3400ca0deeee</a><br><a href="http://stackoverflow.com/questions/35608492/why-does-android-m-requires-location-permissions-to-scan-wifi" target="_blank" rel="noopener">http://stackoverflow.com/questions/35608492/why-does-android-m-requires-location-permissions-to-scan-wifi</a><br><a href="http://stackoverflow.com/questions/35054814/wifi-scan-data-is-not-working-in-android-m" target="_blank" rel="noopener">http://stackoverflow.com/questions/35054814/wifi-scan-data-is-not-working-in-android-m</a></p>
+</blockquote>
+<p>在Android M以上版本中，位置信息与WiFiManager有所关联，所以如果应用没有<em>ACCESS_COARSE_LOCATION</em> 或 <em>ACCESS_FINE_LOCATION</em> 权限又或者是位置开关被关闭，扫描到的将会是空列表。<br>解决：设上这个权限，并进行权限申请，如果列表还是为空就告诉用户打开位置开关</p>
+<h1 id="无法连接到指定热点"><a href="#无法连接到指定热点" class="headerlink" title="无法连接到指定热点"></a>无法连接到指定热点</h1><blockquote>
+<p>主要涉及文章<br><a href="http://bxbxbai.github.io/2014/05/22/android-wifi-connection/" target="_blank" rel="noopener">http://bxbxbai.github.io/2014/05/22/android-wifi-connection/</a></p>
+</blockquote>
+<p>目前Google到的大部分工具类的联网方法大多是这样的:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public boolean addNetwork(WifiConfiguration wf)&#123;</span><br><span class="line">    //连接新的连接</span><br><span class="line">    int netId = mWifiManager.addNetwork(wf);</span><br><span class="line">    return mWifiManager.enableNetwork(netId, true);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是自己怎么调试也不行，最后发现了上面提到的那篇文章。<br>解决：改用下面提供的工具类中的连接方式，增加两行代码即可。</p>
+<h1 id="我重构的工具类"><a href="#我重构的工具类" class="headerlink" title="我重构的工具类"></a>我重构的工具类</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br></pre></td><td class="code"><pre><span class="line">package net.noahgao.freeiot.util;</span><br><span class="line">import java.util.Iterator;</span><br><span class="line">import java.util.List;</span><br><span class="line">import android.content.Context;</span><br><span class="line">import android.net.wifi.ScanResult;</span><br><span class="line">import android.net.wifi.WifiConfiguration;</span><br><span class="line">import android.net.wifi.WifiInfo;</span><br><span class="line">import android.net.wifi.WifiManager;</span><br><span class="line">/**</span><br><span class="line"> * WIFI管理工具类</span><br><span class="line"> * @author ZHF / Ziheng Gao Refactory on 2017.2</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">public class WifiAdmin &#123;</span><br><span class="line">    private static  WifiAdmin wifiAdmin = null;</span><br><span class="line"></span><br><span class="line">    private List&lt;WifiConfiguration&gt; mWifiConfiguration; //无线网络配置信息类集合(网络连接列表)</span><br><span class="line">    private List&lt;ScanResult&gt; mWifiList; //检测到接入点信息类 集合</span><br><span class="line"></span><br><span class="line">    //描述任何Wifi连接状态</span><br><span class="line">    private WifiInfo mWifiInfo;</span><br><span class="line"></span><br><span class="line">    WifiManager.WifiLock mWifilock; //能够阻止wifi进入睡眠状态，使wifi一直处于活跃状态</span><br><span class="line">    public WifiManager mWifiManager;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 获取该类的实例</span><br><span class="line">     * @param context</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public static WifiAdmin getInstance(Context context) &#123;</span><br><span class="line">        if(wifiAdmin == null) &#123;</span><br><span class="line">            wifiAdmin = new WifiAdmin(context);</span><br><span class="line">            return wifiAdmin;</span><br><span class="line">        &#125; else return wifiAdmin;</span><br><span class="line">    &#125;</span><br><span class="line">    private WifiAdmin(Context context) &#123;</span><br><span class="line">        //获取系统Wifi服务   WIFI_SERVICE</span><br><span class="line">        this.mWifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);</span><br><span class="line">        //获取连接信息</span><br><span class="line">        this.mWifiInfo = this.mWifiManager.getConnectionInfo();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 是否存在网络信息</span><br><span class="line">     * @param str  热点名称</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public WifiConfiguration isExsits(String str) &#123;</span><br><span class="line">        Iterator&lt;WifiConfiguration&gt; localIterator = this.mWifiManager.getConfiguredNetworks().iterator();</span><br><span class="line">        WifiConfiguration localWifiConfiguration;</span><br><span class="line">        do &#123;</span><br><span class="line">            if(!localIterator.hasNext()) return null;</span><br><span class="line">            localWifiConfiguration = localIterator.next();</span><br><span class="line">        &#125;while(!localWifiConfiguration.SSID.equals(&quot;\&quot;&quot; + str + &quot;\&quot;&quot;));</span><br><span class="line">        return localWifiConfiguration;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**锁定WifiLock，当下载大文件时需要锁定 **/</span><br><span class="line">    public void AcquireWifiLock() &#123;</span><br><span class="line">        this.mWifilock.acquire();</span><br><span class="line">    &#125;</span><br><span class="line">    /**创建一个WifiLock**/</span><br><span class="line">    public void CreateWifiLock() &#123;</span><br><span class="line">        this.mWifilock = this.mWifiManager.createWifiLock(&quot;Test&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    /**解锁WifiLock**/</span><br><span class="line">    public void ReleaseWifilock() &#123;</span><br><span class="line">        if(mWifilock.isHeld()) &#123; //判断时候锁定</span><br><span class="line">            mWifilock.acquire();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**打开Wifi**/</span><br><span class="line">    public void OpenWifi() &#123;</span><br><span class="line">        if(!this.mWifiManager.isWifiEnabled())&#123; //当前wifi不可用</span><br><span class="line">            this.mWifiManager.setWifiEnabled(true);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    /**关闭Wifi**/</span><br><span class="line">    public void closeWifi() &#123;</span><br><span class="line">        if(mWifiManager.isWifiEnabled()) &#123;</span><br><span class="line">            mWifiManager.setWifiEnabled(false);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 添加到指定Wifi网络 /切换到指定Wifi网络</span><br><span class="line">     * @param wf</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public void addNetwork(WifiConfiguration wf)&#123;</span><br><span class="line"></span><br><span class="line">        //连接新的连接</span><br><span class="line">        int netId = mWifiManager.addNetwork(wf);</span><br><span class="line">        mWifiManager.enableNetwork(netId, true);</span><br><span class="line">        mWifiManager.saveConfiguration();</span><br><span class="line">        mWifiManager.reconnect();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 关闭当前的Wifi网络</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public boolean disconnectCurrentNetwork()&#123;</span><br><span class="line">        if(mWifiManager != null &amp;&amp; mWifiManager.isWifiEnabled())&#123;</span><br><span class="line">            int netId = mWifiManager.getConnectionInfo().getNetworkId();</span><br><span class="line">            mWifiManager.disableNetwork(netId);</span><br><span class="line">            return mWifiManager.disconnect();</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 创建WifiConfiguration</span><br><span class="line">     *</span><br><span class="line">     * @param SSID</span><br><span class="line">     * @param Password</span><br><span class="line">     * @param Type</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public WifiConfiguration createWifiCfg(String SSID, String Password, int Type) &#123;</span><br><span class="line">        WifiConfiguration config = new WifiConfiguration();</span><br><span class="line">        config.allowedAuthAlgorithms.clear();</span><br><span class="line">        config.allowedGroupCiphers.clear();</span><br><span class="line">        config.allowedKeyManagement.clear();</span><br><span class="line">        config.allowedPairwiseCiphers.clear();</span><br><span class="line">        config.allowedProtocols.clear();</span><br><span class="line">        config.SSID = &quot;\&quot;&quot; + SSID + &quot;\&quot;&quot;;</span><br><span class="line"></span><br><span class="line">        WifiConfiguration tempConfig = isExsits(SSID);</span><br><span class="line">        if (tempConfig != null) &#123;</span><br><span class="line">            mWifiManager.removeNetwork(tempConfig.networkId);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if (Type == 1) //WIFICIPHER_NOPASS</span><br><span class="line">        &#123;</span><br><span class="line">          /*  config.wepKeys[0] = &quot;&quot;;//连接无密码热点时加上这两句会出错</span><br><span class="line">            config.wepTxKeyIndex = 0;*/</span><br><span class="line">            config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);</span><br><span class="line">        &#125;</span><br><span class="line">        if (Type == 2) //WIFICIPHER_WEP</span><br><span class="line">        &#123;</span><br><span class="line">            config.hiddenSSID = true;</span><br><span class="line">            config.wepKeys[0] = &quot;\&quot;&quot; + Password + &quot;\&quot;&quot;;</span><br><span class="line">            config.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.SHARED);</span><br><span class="line">            config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);</span><br><span class="line">            config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);</span><br><span class="line">            config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP40);</span><br><span class="line">            config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP104);</span><br><span class="line">            config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);</span><br><span class="line">            config.wepTxKeyIndex = 0;</span><br><span class="line">        &#125;</span><br><span class="line">        if (Type == 3) //WIFICIPHER_WPA</span><br><span class="line">        &#123;</span><br><span class="line">            config.preSharedKey = &quot;\&quot;&quot; + Password + &quot;\&quot;&quot;;</span><br><span class="line">            config.hiddenSSID = true;</span><br><span class="line">            config.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.OPEN);</span><br><span class="line">            config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);</span><br><span class="line">            config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.WPA_PSK);</span><br><span class="line">            config.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.TKIP);</span><br><span class="line">            //config.allowedProtocols.set(WifiConfiguration.Protocol.WPA);</span><br><span class="line">            config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);</span><br><span class="line">            config.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP);</span><br><span class="line">            config.status = WifiConfiguration.Status.ENABLED;</span><br><span class="line">        &#125;</span><br><span class="line">        return config;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**获取ip地址**/</span><br><span class="line">    public int getIPAddress() &#123;</span><br><span class="line">        return (mWifiInfo == null) ? 0 : mWifiInfo.getIpAddress();</span><br><span class="line">    &#125;</span><br><span class="line">    /**获取物理地址(Mac)**/</span><br><span class="line">    public String getMacAddress() &#123;</span><br><span class="line">        return (mWifiInfo == null) ? &quot;NULL&quot; : mWifiInfo.getMacAddress();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**获取网络id**/</span><br><span class="line">    public int getNetworkId() &#123;</span><br><span class="line">        return (mWifiInfo == null) ? 0 : mWifiInfo.getNetworkId();</span><br><span class="line">    &#125;</span><br><span class="line">    /**获取热点创建状态**/</span><br><span class="line">    public int getWifiApState() &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            return (int) (Integer) this.mWifiManager.getClass()</span><br><span class="line">                    .getMethod(&quot;getWifiApState&quot;, new Class[0])</span><br><span class="line">                    .invoke(this.mWifiManager);</span><br><span class="line">        &#125; catch (Exception ignored) &#123;</span><br><span class="line">        &#125;</span><br><span class="line">        return 4;   //未知wifi网卡状态</span><br><span class="line">    &#125;</span><br><span class="line">    /**获取wifi连接信息**/</span><br><span class="line">    public WifiInfo getWifiInfo() &#123;</span><br><span class="line">        return this.mWifiManager.getConnectionInfo();</span><br><span class="line">    &#125;</span><br><span class="line">    /** 得到网络列表**/</span><br><span class="line">    public List&lt;ScanResult&gt; getWifiList() &#123;</span><br><span class="line">        this.mWifiList = this.mWifiManager.getScanResults();</span><br><span class="line">        return this.mWifiList;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**查看扫描结果**/</span><br><span class="line">    public StringBuilder lookUpScan() &#123;</span><br><span class="line">        StringBuilder localStringBuilder = new StringBuilder();</span><br><span class="line">        for (int i = 0; i &lt; mWifiList.size(); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            localStringBuilder.append(&quot;Index_&quot;).append(Integer.toString(i + 1)).append(&quot;:&quot;);</span><br><span class="line">            //将ScanResult信息转换成一个字符串包</span><br><span class="line">            //其中把包括：BSSID、SSID、capabilities、frequency、level</span><br><span class="line">            localStringBuilder.append((mWifiList.get(i)).toString());</span><br><span class="line">            localStringBuilder.append(&quot;\n&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        return localStringBuilder;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**开始搜索wifi**/</span><br><span class="line">    public boolean startScan() &#123;</span><br><span class="line">        return this.mWifiManager.startScan();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#总结" >
+    <span class="tag-code">总结</span>
+  </a>
+
+  <a href="/tags#Android" >
+    <span class="tag-code">Android</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Android-M以上扫描热点列表权限问题"><span class="toc-nav-text">Android M以上扫描热点列表权限问题</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#无法连接到指定热点"><span class="toc-nav-text">无法连接到指定热点</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#我重构的工具类"><span class="toc-nav-text">我重构的工具类</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://noahgao.net/2017/Android-Wifi-Develop/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "noahziheng";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "Android APP WiFi开发大坑收录",
+        owner: "noahziheng",
+        repo: "noahziheng.github.io",
+        oauth: {
+          client_id: "a9a8b8ae317ae422c1eb",
+          client_secret: "017b8d86dc6ee4c9a95b16d37ac432a141541eec"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2018 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+    <br>
+    Photo by <a href="https://unsplash.com/photos/PC_lbSSxCZE?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Kristopher Roller</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+    <br>
+    <a href="http://www.miitbeian.gov.cn" target="_blank">津ICP备16007205号</a>
+    &nbsp; | &nbsp; 
+    <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12010302001093">津公网安备 12010302001093号</a>
+  </p>
+</footer>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-65530848-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-65530848-1');
+</script>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script>
+    var _baId = 'f4eb406be058265cf6064b36b379393d';
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<script src="/js/script.js"></script>
+  </body>
+</html>

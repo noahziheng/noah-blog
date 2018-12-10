@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="一个初级前端开发者的挖坑记录">
+  <meta name="keyword" content="博客, 前端, Web">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      自用hexo主题exLight放出 | Noah&#39;s Blog
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <!--<div class="logo"></div>-->
+      <span>Noah's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/resume/" class="item-link">Resume</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/resume/" class="menu-link">Resume</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>自用hexo主题exLight放出</h2>
+  <p class="post-date">2015-07-31</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="exLight-主题"><a href="#exLight-主题" class="headerlink" title="exLight 主题"></a>exLight 主题</h1><p>怎么看怎么觉得还是light最顺眼，但是有的地方完全不接中国的地气，没办法，谁让咱们国家情况特殊呢～<br>自己修改了Light主题，命名为exLight，加入了很多本地化组件，移植了<a href="https://blog.zhangruipeng.me/hexo-theme-icarus/" target="_blank" rel="noopener">Icarus</a>主题里的profile，之前很多值都是模板写死，现在做成配置放出来给喜欢的朋友。<br>Github开源地址: <a href="https://github.com/noahziheng/hexo-theme-exlight" target="_blank" rel="noopener">https://github.com/noahziheng/hexo-theme-exlight</a></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><a id="more"></a>
+<p>在hexo根目录运行运行以下命令来安装exlight主题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://github.com/noahziheng/hexo-theme-exlight.git themes/exlight</span><br></pre></td></tr></table></figure>
+<h2 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h2><p>exLight主题相比light原主题有以下改动:  </p>
+<ul>
+<li>移除自带的墙内无法使用的FacebookComment，加入多说评论支持，仍支持hexo自带的disqus配置</li>
+<li>加入新的个人介绍挂件(感谢<a href="https://blog.zhangruipeng.me/hexo-theme-icarus/" target="_blank" rel="noopener">Icarus</a>提供灵感)，提供主要SNS链接</li>
+<li>加入友链挂件，只支持修改ejs添加友链的方式</li>
+<li>加入微博秀挂件</li>
+<li>替换搜索挂件为<a href="https://tinysou.com/" target="_blank" rel="noopener">TinySou</a>支持</li>
+<li>加入百度统计支持，保留Google Analytics支持</li>
+<li>加入JiaThis分享取代原生的墙内不可用分享组件</li>
+<li>加入InstantClick优化插件，提高加载速度</li>
+</ul>
+<p>效果请参看我的博客<a href="https://noahgao.net">Noah’s Blog</a>  </p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>默认配置:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line"><span class="attr">  Home:</span> <span class="string">/</span></span><br><span class="line"><span class="attr">  Archives:</span> <span class="string">/archives</span></span><br><span class="line"><span class="attr">  Projects:</span> <span class="string">/projects</span></span><br><span class="line"><span class="attr">  About:</span> <span class="string">/about</span></span><br><span class="line"></span><br><span class="line"><span class="attr">widgets:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">profile</span> <span class="comment">#个人介绍挂件</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">search</span> <span class="comment">#基于TinySou的小挂件，需配置下面的TinySou标志</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">recent_posts</span> <span class="comment">#最近文章挂件</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">category</span> <span class="comment">#分类挂件</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">tagcloud</span> <span class="comment">#标签云挂件</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">weibo</span> <span class="comment">#微博秀挂件，需配置底下的UID</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">links</span> <span class="comment">#友链挂件，添加友链需修改./layout/_widget/links.ejs</span></span><br><span class="line"><span class="comment">## 另有tag挂件可选</span></span><br><span class="line"></span><br><span class="line"><span class="attr">excerpt_link:</span> <span class="string">阅读全文</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jiathis:</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">true</span> <span class="comment">#JiaThis分享开关</span></span><br><span class="line"></span><br><span class="line"><span class="attr">fancybox:</span> <span class="literal">true</span> <span class="comment">#fancybox配置</span></span><br><span class="line"><span class="attr">baidu_tongji:</span> <span class="comment">#百度统计</span></span><br><span class="line"><span class="attr">google_analytics:</span> <span class="comment">#UA-XXXXXX-X</span></span><br><span class="line"><span class="attr">rss:</span> <span class="comment">#可不填写</span></span><br><span class="line"><span class="attr">duoshuo_shortname:</span> <span class="string">noahgao</span> <span class="comment">#多说评论名称</span></span><br><span class="line"></span><br><span class="line"><span class="attr">tinysou_id:</span> <span class="comment">#tinysou引擎ID</span></span><br><span class="line"></span><br><span class="line"><span class="attr">weibo_uid:</span> <span class="number">2652975830</span> <span class="comment">#微博秀UID</span></span><br><span class="line"><span class="attr">SNS:</span> <span class="comment">#右侧个人介绍widget社交链接配置</span></span><br><span class="line"><span class="attr">  github:</span> <span class="attr">https://github.com/noahziheng</span></span><br><span class="line"><span class="attr">  twitter:</span> <span class="attr">https://twitter.com/noahziheng</span></span><br><span class="line"><span class="attr">  facebook:</span> <span class="attr">https://www.facebook.com/profile.php?id=100007443646852</span></span><br><span class="line"><span class="attr">  weibo:</span> <span class="attr">https://weibo.com/noah1719</span></span><br><span class="line"><span class="attr">  zhihu:</span> <span class="attr">https://www.zhihu.com/people/noah-gao</span></span><br><span class="line"><span class="attr">profile:</span> <span class="comment">#右侧个人介绍widget配置</span></span><br><span class="line"><span class="attr">  name:</span> <span class="comment">#你的名字</span></span><br><span class="line"><span class="attr">  headimg:</span> <span class="comment">#你的头像地址</span></span><br><span class="line"><span class="attr">  description:</span> <span class="comment">#你的一句话简介</span></span><br><span class="line"><span class="attr">  location:</span>  <span class="comment">#你的位置</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>以下是light主题官方使用方式介绍，exLight全部支持</strong></p>
+<h2 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h2><h3 id="Gallery-Post"><a href="#Gallery-Post" class="headerlink" title="Gallery Post"></a>Gallery Post</h3><p><img src="https://i.minus.com/ibp6Hbytwgof9y.jpg" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">layout: photo</span><br><span class="line">title: Gallery Post</span><br><span class="line">photos:</span><br><span class="line">- https://i.minus.com/ibobbTlfxZgITW.jpg</span><br><span class="line">- https://i.minus.com/iedpg90Y0exFS.jpg</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<h3 id="Link-Post"><a href="#Link-Post" class="headerlink" title="Link Post"></a>Link Post</h3><p><img src="https://i.minus.com/i7hBbGqh14EWo.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">layout: link</span><br><span class="line">title: Link Post</span><br><span class="line">link: https://www.google.com/</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<h3 id="Tweet-Widget"><a href="#Tweet-Widget" class="headerlink" title="Tweet Widget"></a>Tweet Widget</h3><p><img src="https://i.minus.com/iMC8EyF9y0Y3y.PNG" alt=""></p>
+<h3 id="Fancybox"><a href="#Fancybox" class="headerlink" title="Fancybox"></a>Fancybox</h3><p><img src="https://i.minus.com/iHv7h7rZNqHvo.PNG" alt=""></p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#hexo" >
+    <span class="tag-code">hexo</span>
+  </a>
+
+  <a href="/tags#个人项目" >
+    <span class="tag-code">个人项目</span>
+  </a>
+
+  <a href="/tags#主题" >
+    <span class="tag-code">主题</span>
+  </a>
+
+  <a href="/tags#翻译" >
+    <span class="tag-code">翻译</span>
+  </a>
+
+  <a href="/tags#自用" >
+    <span class="tag-code">自用</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#exLight-主题"><span class="toc-nav-text">exLight 主题</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#安装"><span class="toc-nav-text">安装</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#特征"><span class="toc-nav-text">特征</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#配置"><span class="toc-nav-text">配置</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Features"><span class="toc-nav-text">Features</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Gallery-Post"><span class="toc-nav-text">Gallery Post</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Link-Post"><span class="toc-nav-text">Link Post</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Tweet-Widget"><span class="toc-nav-text">Tweet Widget</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Fancybox"><span class="toc-nav-text">Fancybox</span></a></li></ol></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://noahgao.net/2015/hexo-theme-exlight/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "noahziheng";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "自用hexo主题exLight放出",
+        owner: "noahziheng",
+        repo: "noahziheng.github.io",
+        oauth: {
+          client_id: "a9a8b8ae317ae422c1eb",
+          client_secret: "017b8d86dc6ee4c9a95b16d37ac432a141541eec"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2018 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+    <br>
+    Photo by <a href="https://unsplash.com/photos/PC_lbSSxCZE?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Kristopher Roller</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+    <br>
+    <a href="http://www.miitbeian.gov.cn" target="_blank">津ICP备16007205号</a>
+    &nbsp; | &nbsp; 
+    <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12010302001093">津公网安备 12010302001093号</a>
+  </p>
+</footer>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-65530848-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-65530848-1');
+</script>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script>
+    var _baId = 'f4eb406be058265cf6064b36b379393d';
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<script src="/js/script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="一个初级前端开发者的挖坑记录">
+  <meta name="keyword" content="博客, 前端, Web">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      小内存使用Docker部署多个应用实录 | Noah&#39;s Blog
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <!--<div class="logo"></div>-->
+      <span>Noah's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/resume/" class="item-link">Resume</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/resume/" class="menu-link">Resume</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>小内存使用Docker部署多个应用实录</h2>
+  <p class="post-date">2015-07-28</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><p><img src="/images/1-dockerlogo.png" alt="1-dockerlogo.png"></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>话说七月初在<a href="https://www.zrblog.net" target="_blank" rel="noopener">赵容部落</a>上看到<a href="https://acrosvm.com/" target="_blank" rel="noopener">AcrosVM</a>的低价美国VPS，顺便提供了优惠码。128M的KVM方案VPS年付不过72元人民币。考虑到博客放在Github Pages上有被墙的风险，加上最近也有几个项目要写，所以考虑购买个VPS用来部署。<br>最终我还是选择了256M的KVM方案,年付112元人民币。实际上OpenVZ的方案更便宜，但是不提供vSwap和突发内存，不够放心。<br><img src="/images/1-acrosvm.png" alt="1-acrosvm.png"></p>
+<h1 id="现状"><a href="#现状" class="headerlink" title="现状"></a>现状</h1><p>这个VPS购买之后的体验的确不错，由于在Quodra.Net的机场，使用PCCW亚洲优化线路，速度相当不错，天津长宽最高ping只有300ms，闲时可达180ms，在优化得当和应用CDN的情况下比日本VPS相差不多。<br>现在，这个VPS部署着三个应用，还运行着监控系统和Docker Daemon，以及大家都懂的Shadowsocks。<br><a id="more"></a><br>系统环境: Ubuntu 12.04 x64 + Docker latest + Nginx 1.9 + <a href="https://nodequery.com" target="_blank" rel="noopener">NodeQuery</a></p>
+<ul>
+<li>Noah’s Blog Powered by Hexo   <blockquote>
+<p>全静态文件使用Nginx访问</p>
+</blockquote>
+</li>
+<li>模拟飞行助手官网  <blockquote>
+<p>主要是静态文件，使用PHP完成上传管理 Nginx前端，docker了一个php-fpm容器控制PHP部分</p>
+</blockquote>
+</li>
+<li>EAIPChina航图阅读器  <blockquote>
+<p>使用Node.js + Express编写，Nginx反向代理到node端口，node应用运行在一个标准Docker容器中</p>
+</blockquote>
+</li>
+<li>海鸥Seagull Docker管理器<blockquote>
+<p>运行在某端口上的容器管理系统</p>
+</blockquote>
+</li>
+<li><p>Shadowsocks</p>
+<blockquote>
+<p>都懂的：）Docker版本，参考:<a href="https://segmentfault.com/a/1190000002799579" target="_blank" rel="noopener">https://segmentfault.com/a/1190000002799579</a></p>
+</blockquote>
+<p>剩余资源：<a href="https://nodequery.com" target="_blank" rel="noopener">NodeQuery</a>数据显示平均负载常态不超过20%，峰值最高50%，内存基本稳定140M/256M  </p>
+<h1 id="心得"><a href="#心得" class="headerlink" title="心得"></a>心得</h1></li>
+</ul>
+<ol>
+<li><p>Docker是部署神器  </p>
+<p>Docker的部署虽准备时间较长，但大多数情况下有现成的镜像可用,可能比使用现成二进制包的时间长，但节约了配置时间，更比编译部署节省时间。<br>在最开始的时候我曾尝试过安装LNMP一键包，但是在小内存VPS上编译速度简直感人，后来尝试ubuntu apt二进制包，配置复杂不说，扩展安装也极其麻烦。<br>直到接触了Docker，配置Typecho在有现成镜像的帮助下，20分钟就搞定了。<br>当然任何事物有优点也有缺点，Docker现阶段的内存占用确实比直接安装大一些，但看起来比较稳定，不会大起大落，另外镜像构建需要下载不少文件，都比较大，推荐大家尝试<a href="https://www.daocloud.io" target="_blank" rel="noopener">DaoCloud</a>，加速器功能在本地使用时有很大帮助，推送镜像也效果不错，不过关于自有主机管理方面，因为我自己是美国VPS，与国内DaoCloud服务器链接很慢，部署一个镜像可能需要好几个小时，而且安装监控面板会把默认下载地址改成国内加速地址，反而降低下载速度，对于使用国内主机的朋友可能会更实用。<br>另外，Docker只支持64位系统，想用小内存部署LNMP这样环境的话内存确实捉急。 </p>
+<p>2.Nginx直接安装最方便  </p>
+<p>由于这是生产环境，不会也最好不要随便停机，nginx的docker镜像象征意义大于实际意义，直接apt-get更方便。<br>另外，网上一些文章给出的docker nginx的命令存在漏洞，1.9以后的Docker -v似乎只识别文件夹，nginx.conf并不能直接映射出来。</p>
+</li>
+<li><p>Git部署很方便，配置需要时间  </p>
+<blockquote>
+<p>参考了<a href="https://blog.berry10086.com/" target="_blank" rel="noopener">Berry</a>的<a href="https://blog.berry10086.com/Tech/deploy-hexo-to-vps/" target="_blank" rel="noopener">在VPS上部署Hexo</a>一文  </p>
+</blockquote>
+<p>参见 鄙人的陋文 <a href="https://noahgao.net/2015/git-deploy-vps">使用Git在VPS上部署代码</a></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>在小内存VPS上部署应用时，如果主要是部署PHP+MySQL应用的话，仍然建议使用LNMP方案，当主要用途是安置访问量不大的python/node.js应用和纯静态应用时可以考虑使用x64系统+Docker+Nginx前端，如果应用访问量足够大，数据量快速增多时也可以迁移Docker镜像，用Nginx在前端反向代理就好。</p>
+</li>
+</ol>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#hexo" >
+    <span class="tag-code">hexo</span>
+  </a>
+
+  <a href="/tags#deploy" >
+    <span class="tag-code">deploy</span>
+  </a>
+
+  <a href="/tags#部署" >
+    <span class="tag-code">部署</span>
+  </a>
+
+  <a href="/tags#VPS" >
+    <span class="tag-code">VPS</span>
+  </a>
+
+  <a href="/tags#Docker" >
+    <span class="tag-code">Docker</span>
+  </a>
+
+  <a href="/tags#nginx" >
+    <span class="tag-code">nginx</span>
+  </a>
+
+  <a href="/tags#git" >
+    <span class="tag-code">git</span>
+  </a>
+
+  <a href="/tags#ubuntu" >
+    <span class="tag-code">ubuntu</span>
+  </a>
+
+  <a href="/tags#NodeQuery" >
+    <span class="tag-code">NodeQuery</span>
+  </a>
+
+  <a href="/tags#KVM" >
+    <span class="tag-code">KVM</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#前言"><span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#现状"><span class="toc-nav-text">现状</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#心得"><span class="toc-nav-text">心得</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#总结"><span class="toc-nav-text">总结</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://noahgao.net/2015/lowmem-vps-deploy/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "noahziheng";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "小内存使用Docker部署多个应用实录",
+        owner: "noahziheng",
+        repo: "noahziheng.github.io",
+        oauth: {
+          client_id: "a9a8b8ae317ae422c1eb",
+          client_secret: "017b8d86dc6ee4c9a95b16d37ac432a141541eec"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2018 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+    <br>
+    Photo by <a href="https://unsplash.com/photos/PC_lbSSxCZE?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Kristopher Roller</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+    <br>
+    <a href="http://www.miitbeian.gov.cn" target="_blank">津ICP备16007205号</a>
+    &nbsp; | &nbsp; 
+    <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12010302001093">津公网安备 12010302001093号</a>
+  </p>
+</footer>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-65530848-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-65530848-1');
+</script>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script>
+    var _baId = 'f4eb406be058265cf6064b36b379393d';
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<script src="/js/script.js"></script>
+  </body>
+</html>
