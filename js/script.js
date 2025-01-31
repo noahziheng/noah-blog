@@ -87,7 +87,7 @@
   var tipEl = document.createElement('div')
   tipEl.className = 'archive-tip'
   tipEl.innerHTML = '<span>您正在访问的是 <a href="https://blog.noahgao.net">Noah\'s Blog</a> 的存档，我的个人页已经迁往 <a href="https://noahgao.net">这里</a></span><i class="icon-close" />'
-  document.querySelector('body').insertBefore(tipEl, document.querySelector('.header'))
+  document.querySelector("header").insertBefore(tipEl, document.querySelector('.header-container'))
   document.querySelector('.archive-tip > .icon-close').addEventListener('click', function (e) { 
     e.preventDefault()
     e.stopPropagation()
